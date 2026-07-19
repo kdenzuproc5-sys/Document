@@ -1,0 +1,177 @@
+ /* Core Styling Variables */
+:root {
+    --bg-dark: #020205;
+    --neon-green: #39ff14;
+    --warning-red: #ff003c;
+    --panel-bg: rgba(5, 10, 5, 0.7);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-dark);
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+    color: #ffffff;
+}
+
+/* ==========================================
+   LOADING & HUD INTERFACE
+   ========================================== */
+
+#interface-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 10;
+    background: radial-gradient(circle at center, #0a140a 0%, #020402 100%);
+}
+
+#interface-container.active {
+    display: flex;
+}
+
+/* Retro CRT Line Overlay */
+.crt-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
+    background-size: 100% 4px;
+    z-index: 15;
+    pointer-events: none;
+}
+
+.hud-box {
+    width: 100%;
+    max-width: 550px;
+    background: var(--panel-bg);
+    border: 1px solid rgba(57, 255, 20, 0.2);
+    padding: 30px;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.05);
+    z-index: 12;
+}
+
+.system-title {
+    font-size: 1.6rem;
+    color: var(--neon-green);
+    text-shadow: 0 0 8px rgba(57, 255, 20, 0.5);
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+#loading-subtitle {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    margin-bottom: 35px;
+    text-transform: uppercase;
+}
+
+/* Progress HUD */
+.progress-container {
+    margin-bottom: 25px;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#progress-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--neon-green);
+    box-shadow: 0 0 8px var(--neon-green);
+    transition: width 0.1s linear;
+}
+
+.status-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--neon-green);
+}
+
+/* Fake Terminal Activity Feed */
+#console-log {
+    width: 100%;
+    height: 100px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    font-size: 0.7rem;
+    color: rgba(57, 255, 20, 0.7);
+    overflow: hidden;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.warning-state #progress-fill {
+    background: var(--warning-red) !important;
+    box-shadow: 0 0 8px var(--warning-red) !important;
+}
+
+/* ==========================================
+   JUMPSCARE CANVAS OVERLAY
+   ========================================== */
+
+#jumpscare-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    z-index: 100;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#jumpscare-container.flash-black {
+    display: flex;
+}
+
+#scare-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+    opacity: 0;
+}
+
+#scare-image.reveal {
+    display: block;
+    animation: quickZoomFade 0.2s ease-out forwards;
+}
+
+@keyframes quickZoomFade {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
